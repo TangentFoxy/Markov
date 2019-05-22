@@ -85,14 +85,8 @@ do
       end
       local state = self.state
       self.state = State(self._order)
-      if not (opts.sep) then
-        opts.sep = " "
-      end
-      if not (opts.max_length) then
-        opts.max_length = math.huge
-      end
       local result = { }
-      for i = 1, opts.max_length do
+      for i = 1, opts.max_length or self.max_length do
         local value = self:next()
         if value == END then
           break
@@ -100,7 +94,7 @@ do
         insert(result, value)
       end
       self.state = state
-      return concat(result, opts.sep)
+      return concat(result, opts.sep or self.sep)
     end,
     order = function(self, set)
       if set then
@@ -130,6 +124,8 @@ do
           opts
         }
       end
+      self.sep = opts.sep or " "
+      self.max_length = opts.max_length or math.huge
       self.pattern = opts.pattern or "%S+"
       self.sources = { }
       self:order(opts.order or 1)

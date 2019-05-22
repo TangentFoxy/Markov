@@ -30,6 +30,10 @@ Methods:
 - `generator:order(x)` Get/Set the order/degree of the generator
 - `generator:next()` Fetches the next token (used internally to generate chains)
 
+`markov.START` and `markov.END` are empty tables used as unique identifies to
+indicate where a chain should start or end. This is documented should you wish
+to use the `next` method, or manually use of start and end points somehow.
+
 ## Examples
 
 (More examples are in the `test.moon`/`test.lua` files.)

@@ -94,7 +94,17 @@ do
         insert(result, value)
       end
       self.state = state
-      return concat(result, opts.sep or self.sep)
+      result = concat(result, opts.sep or self.sep)
+      if not ((opts.replication_allowed or self.replication_allowed)) then
+        local _list_0 = self.sources
+        for _index_0 = 1, #_list_0 do
+          local str = _list_0[_index_0]
+          if result == str then
+            return self:string(opts)
+          end
+        end
+      end
+      return result
     end,
     order = function(self, set)
       if set then
@@ -126,6 +136,7 @@ do
       end
       self.sep = opts.sep or " "
       self.max_length = opts.max_length or math.huge
+      self.replication_allowed = opts.replication_allowed or false
       self.pattern = opts.pattern or "%S+"
       self.sources = { }
       self:order(opts.order or 1)

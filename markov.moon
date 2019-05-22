@@ -32,8 +32,9 @@ class Markov
     opts = select 1, ...
     if "table" != type opts
       opts = { opts } -- make sure 1st source value is still added if the 1st arg isn't a table
-    @sep = opts.sep or " "                     -- optional default seperator
-    @max_length = opts.max_length or math.huge -- optional default max length
+    @sep = opts.sep or " "                                   -- seperator (string method)
+    @max_length = opts.max_length or math.huge               -- max length (string method)
+    @replication_allowed = opts.replication_allowed or false -- allow exact replication of sources (string method)
 
     @pattern = opts.pattern or "%S+" -- default: whitespace delimmits source tokens
     @sources = {}
@@ -79,7 +80,11 @@ class Markov
       insert result, value
 
     @state = state
-    return concat result, opts.sep or @sep
+    result = concat result, opts.sep or @sep
+    unless (opts.replication_allowed or @replication_allowed)
+      for str in *@sources
+        return @string opts if result == str
+    return result
 
   -- get/set chain order (also known as degree..how many tokens are used in chain generation)
   order: (set) =>

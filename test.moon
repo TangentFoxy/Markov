@@ -369,3 +369,11 @@ m4 = markov other_things
 
 for i = 1, 20
   print(m4\string sep: "", max_length: 13)
+
+print "---"
+m3.sep = ""
+print m3\string!
+
+lorem_ipsum_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+m5 = markov lorem_ipsum_text
+print m5\string!

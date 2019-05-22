@@ -68,8 +68,14 @@ do
         insert(self.data[str], word)
         return state:push(word)
       end
-      for word in str:gmatch(self.pattern) do
-        push(word)
+      if "string" == type(self.pattern) then
+        for word in str:gmatch(self.pattern) do
+          push(word)
+        end
+      else
+        for word in self:pattern(str) do
+          push(word)
+        end
       end
       return push(END)
     end,

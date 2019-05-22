@@ -32,7 +32,7 @@ class Markov
     opts = select 1, ...
     if "table" != type opts
       opts = { opts } -- make sure 1st source value is still added if the 1st arg isn't a table
-    @sep = opts.sep or " "                                   -- seperator (string method)
+    @sep = opts.sep or " "                                   -- separator (string method)
     @max_length = opts.max_length or math.huge               -- max length (string method)
     @replication_allowed = opts.replication_allowed or false -- allow exact replication of sources (string method)
 
@@ -57,8 +57,12 @@ class Markov
       insert(@data[str], word)
       state\push word
 
-    for word in str\gmatch(@pattern)
-      push word
+    if "string" == type @pattern
+      for word in str\gmatch(@pattern)
+        push word
+    else
+      for word in @pattern(str)
+        push word
     push END
 
   -- fetches next token from current state
@@ -68,7 +72,8 @@ class Markov
     @state\push result
     return result
 
-  -- generates a chain up to a maximum length with a specifiable seperator between tokens
+  -- generates a chain
+  -- options: max_length, sep (separator in generated chain), replication_allowed (can a source be exactly replicated)
   string: (opts={}) =>
     state = @state
     @state = State(@_order)

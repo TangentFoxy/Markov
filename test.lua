@@ -1,7 +1,7 @@
 local markov = require("markov")
 local str = "This is an example string. This string is delicious. This is an example set of tacos."
 local example = markov(str)
-for i = 1, 1000 do
+for i = 1, 100 do
   print(example:next())
 end
 print("--- --- ---")
@@ -149,6 +149,12 @@ local elements = {
 }
 local m3 = markov(elements)
 print("---")
+for k, v in pairs(m3.data) do
+  print(k)
+  for a, b in pairs(v) do
+    print("", b)
+  end
+end
 print("---")
 for i = 1, 20 do
   print(m3:string({

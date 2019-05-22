@@ -125,7 +125,7 @@ do
   _class_0 = setmetatable({
     __init = function(self, ...)
       local opts = select(1, ...)
-      if "string" == type(opts) then
+      if "table" ~= type(opts) then
         opts = {
           opts
         }

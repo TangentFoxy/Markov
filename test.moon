@@ -3,7 +3,7 @@ str = "This is an example string. This string is delicious. This is an example s
 
 example = markov(str)
 
-for i = 1, 1000
+for i = 1, 100
   print example\next!
 
 print("--- --- ---")
@@ -148,7 +148,7 @@ elements = {
   "Tennessine"
   "Oganesson"
   "Ununennium"
-  pattern: "%a"
+  pattern: "%a" -- match individual letters
   order: 2
 }
 
@@ -156,10 +156,11 @@ m3 = markov elements
 
 print("---")
 
--- for k,v in pairs m3.data
---   print k
---   for a,b in pairs v
---     print "", b
+-- DEBUG showing internal state
+for k,v in pairs m3.data
+  print k
+  for a,b in pairs v
+    print "", b
 
 print("---")
 
@@ -175,7 +176,6 @@ other_things = {
   "Tritium"
   "Bronze"
   "Protium"
-
   -- fictional elements (http://lmntology.com/nameAsElementsWhite.php)
   "Gundanium"
   "Latinum"
@@ -188,7 +188,6 @@ other_things = {
   "Xenium"
   "Rearden"
   "Zanium"
-
   -- fictional
   --  http://www.bbc.co.uk/comedy/lookaroundyou/series1/images/periodic1.gif
   --  http://www.bbc.co.uk/comedy/lookaroundyou/series1/images/periodic2.gif
@@ -198,14 +197,12 @@ other_things = {
   "Docherty"
   "Tedium"
   "Thankium"
-
   -- fictional (https://www.neuronsnotincluded.com/products/element-ah-fake-periodic-table-chemistry-elements)
   "Geekium"
   "Satisfactium"
   "Alarmose"
   "Cursium"
   "Brainium"
-
   -- real chemicals with funny names (http://www.chm.bris.ac.uk/sillymolecules/sillymols.htm)
   "Arsole"
   "Adamantane"
@@ -250,12 +247,10 @@ other_things = {
   "Furfuryl"
   "Carnallite"
   "Draculin"
-
   -- fictional (made up by me)
   "Toronton"
   "Praesium"
   "Halivalium"
-
   -- fictional (https://www.buymetalonline.co.uk/images/fictional_minerals.jpg)
   "Flubber"
   "Axonite"
@@ -316,7 +311,6 @@ other_things = {
   "Balthorium"
   "Galvorn"
   "Byzantium"
-
   -- fictional (https://en.wikipedia.org/wiki/List_of_fictional_elements,_materials,_isotopes_and_subatomic_particles)
   "Aether"
   "Atium"
@@ -351,12 +345,10 @@ other_things = {
   "Reson"
   "Tachyon"
   "Thaum"
-
   "Computronium"
   "Electrum"
-
   -- Trek
-  "Neutronium"
+  "Neutronium" -- also a real thing
   "Nitrium"
   "Trilithium"
   "Kironide"
@@ -366,13 +358,12 @@ other_things = {
   "Ketracel" -- removed "-White"
   "Retinax" -- removed "-5"
   "Archerite" -- fake ;)
-
   pattern: "%a"
   order: 2
 }
 
 for i = 1, #elements
-  table.insert other_things, elements[i]
+  table.insert other_things, elements[i] -- complete the set with real elements
 
 m4 = markov other_things
 
